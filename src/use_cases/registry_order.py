@@ -3,7 +3,6 @@ from src.main.http_types.http_request import HttpRequest
 from src.main.http_types.http_response import HttpResponse
 from src.models.repository.interfaces.orders_repository import OrdersRepositoryInterface
 
-
 class RegistryOrder:
     def __init__(self, orders_repository: OrdersRepositoryInterface) -> None:
         self.orders_repository = orders_repository
@@ -23,8 +22,8 @@ class RegistryOrder:
     
     def __format_new_order(self, body: dict) -> dict:
         new_order = body["data"]
-        new_order = { **new_order, "created_at": datetime.now() }
-        return
+        new_order = {**new_order, "created_at": datetime.now()}
+        return new_order
     
     def __registry_order(self, new_order: dict) -> None:
         self.__orders_repository.insert_document(new_order)
