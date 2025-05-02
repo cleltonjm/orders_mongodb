@@ -16,12 +16,13 @@ class RegistryFinder:
         except Exception as exception:
             return error_handler(exception)
 
-    def search_order(self, order_id: str) -> dict:
+    def __search_order(self, order_id: str) -> dict:
         order = self.__orders_repository.select_by_object_id(order_id)
         if not order: raise HttpNotFoundError("Order not found")
         return order
     
     def __format_response(self, order: dict) -> HttpResponse:
+        order["_id"] = str(order["_id"])
         return HttpResponse(
             body={
                 "data": {
